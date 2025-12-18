@@ -26,6 +26,6 @@ public class User{
      public String getPassword(){
         return Password;
     }
-    
+    public void set
 
 }
