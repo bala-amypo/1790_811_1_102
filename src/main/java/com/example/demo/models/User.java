@@ -26,6 +26,17 @@ public class User{
      public String getPassword(){
         return Password;
     }
-    public void set
+    public void setId(Long id;){
+        this.id = id;
+    }
+ public void setId(Long id;){
+        this.id = id;
+    }
+ public void setId(Long id;){
+        this.id = id;
+    }
+ public void setId(Long id;){
+        this.id = id;
+    }
 
 }
