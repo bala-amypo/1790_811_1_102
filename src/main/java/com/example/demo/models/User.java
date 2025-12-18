@@ -23,4 +23,9 @@ public class User{
       public String getEmail(){
         return Email;
     }
+     public String getPassword(){
+        return Password;
+    }
+    
+
 }
