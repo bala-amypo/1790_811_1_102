@@ -32,11 +32,11 @@ public class User{
     public void setUsername(String name;){
         this.Name = name;
     }
-    public void setId(Long id;){
-        this.id = id;
+    public void setEmail(String email;){`
+        this.Email = email;
     }
-    public void setId(Long id;){
-        this.id = id;
+    public void setPassword(Long password;){
+        this.Password = password;
     }
 
 }
