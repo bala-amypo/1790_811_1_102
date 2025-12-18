@@ -1,14 +1,11 @@
-@Service
-public class WarrantyService {
+package com.example.warranty.service;
 
-    @Autowired
-    private WarrantyRepository repo;
+import java.util.List;
+import com.example.warranty.entity.Warranty;
 
-    public Warranty save(Warranty warranty) {
-        return repo.save(warranty);
-    }
+public interface WarrantyService {
 
-    public List<Warranty> getAll() {
-        return repo.findAll();
-    }
+    Warranty save(Warranty warranty);
+
+    List<Warranty> getAll();
 }
