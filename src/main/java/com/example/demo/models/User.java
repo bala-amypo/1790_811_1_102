@@ -29,13 +29,13 @@ public class User{
     public void setId(Long id;){
         this.id = id;
     }
- public void setId(Long id;){
+    public void setUsername(String name;){
+        this.Name = name;
+    }
+    public void setId(Long id;){
         this.id = id;
     }
- public void setId(Long id;){
-        this.id = id;
-    }
- public void setId(Long id;){
+    public void setId(Long id;){
         this.id = id;
     }
 
