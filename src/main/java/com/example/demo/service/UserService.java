@@ -1,14 +1,11 @@
-@Service
-public class UserService {
+package com.example.warranty.service;
 
-    @Autowired
-    private UserRepository repo;
+import java.util.Optional;
+import com.example.warranty.entity.User;
 
-    public User register(User user) {
-        return repo.save(user);
-    }
+public interface UserService {
 
-    public Optional<User> findByEmail(String email) {
-        return repo.findByEmail(email);
-    }
+    User register(User user);
+
+    Optional<User> findByEmail(String email);
 }
