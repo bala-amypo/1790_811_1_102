@@ -21,6 +21,6 @@ public class User{
         return username;
     }
       public String getEmail(){
-        return ;
+        return Email;
     }
 }
