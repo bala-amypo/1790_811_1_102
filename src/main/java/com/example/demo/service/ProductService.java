@@ -1,14 +1,11 @@
-@Service
-public class ProductService {
+package com.example.warranty.service;
 
-    @Autowired
-    private ProductRepository repo;
+import java.util.List;
+import com.example.warranty.entity.Product;
 
-    public Product save(Product product) {
-        return repo.save(product);
-    }
+public interface ProductService {
 
-    public List<Product> getByUser(Long userId) {
-        return repo.findByUserId(userId);
-    }
+    Product save(Product product);
+
+    List<Product> getByUser(Long userId);
 }
