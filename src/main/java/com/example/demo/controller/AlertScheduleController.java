@@ -1,20 +1,38 @@
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+package com.example.demo.controller;
+
+import com.example.demo.entity.AlertSchedule;
+import com.example.demo.service.AlertScheduleService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/alerts")
-public class AlertController {
+@RequestMapping("/schedules")
+public class AlertScheduleController {
 
-    @Autowired
-    private AlertLogRepository repo;
+    private final AlertScheduleService alertScheduleService;
 
-    @GetMapping
-    public List<AlertLog> getLogs() {
-        return repo.findAll();
+    public AlertScheduleController(AlertScheduleService alertScheduleService) {
+        this.alertScheduleService = alertScheduleService;
+    }
+
+    @PostMapping("/{warrantyId}")
+    public ResponseEntity<AlertSchedule> createSchedule(
+            @PathVariable Long warrantyId,
+            @RequestBody AlertSchedule schedule) {
+
+        return ResponseEntity.ok(
+                alertScheduleService.createSchedule(warrantyId, schedule)
+        );
+    }
+
+    @GetMapping("/{warrantyId}")
+    public ResponseEntity<List<AlertSchedule>> getSchedules(
+            @PathVariable Long warrantyId) {
+
+        return ResponseEntity.ok(
+                alertScheduleService.getSchedules(warrantyId)
+        );
     }
 }
