@@ -1,12 +1,17 @@
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+package com.example.demo.entity;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "alert_logs")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class AlertLog {
 
     @Id
@@ -14,41 +19,15 @@ public class AlertLog {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "warranty_id", nullable = false)
     private Warranty warranty;
 
     private LocalDateTime sentAt;
+
     private String message;
 
-    public Long getId() {
-    return id;
-}
-
-public void setId(Long id) {
-    this.id = id;
-}
-
-public Warranty getWarranty() {
-    return warranty;
-}
-
-public void setWarranty(Warranty warranty) {
-    this.warranty = warranty;
-}
-
-public LocalDateTime getSentAt() {
-    return sentAt;
-}
-
-public void setSentAt(LocalDateTime sentAt) {
-    this.sentAt = sentAt;
-}
-
-public String getMessage() {
-    return message;
-}
-
-public void setMessage(String message) {
-    this.message = message;
-}
-
+    @PrePersist
+    public void onCreate() {
+        this.sentAt = LocalDateTime.now();
+    }
 }

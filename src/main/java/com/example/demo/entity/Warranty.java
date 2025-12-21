@@ -1,68 +1,42 @@
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@Table(name = "warranties")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Warranty {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     private LocalDate purchaseDate;
+
     private LocalDate expiryDate;
 
-    @Column(unique = true)
-    private String warrantyNumber;
+    @Column(unique = true, nullable = false)
+    private String serialNumber;
 
-    private boolean active;
+    @OneToMany(mappedBy = "warranty", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AlertSchedule> alertSchedules;
 
-    public Long getId() {
-    return id;
-}
-
-public void setId(Long id) {
-    this.id = id;
-}
-
-public Product getProduct() {
-    return product;
-}
-
-public void setProduct(Product product) {
-    this.product = product;
-}
-
-public LocalDate getPurchaseDate() {
-    return purchaseDate;
-}
-
-public void setPurchaseDate(LocalDate purchaseDate) {
-    this.purchaseDate = purchaseDate;
-}
-
-public LocalDate getExpiryDate() {
-    return expiryDate;
-}
-
-public void setExpiryDate(LocalDate expiryDate) {
-    this.expiryDate = expiryDate;
-}
-
-public String getWarrantyNumber() {
-    return warrantyNumber;
-}
-
-public void setWarrantyNumber(String warrantyNumber) {
-    this.warrantyNumber = warrantyNumber;
-}
-
-public boolean isActive() {
-    return active;
-}
-
-public void setActive(boolean active) {
-    this.active = active;
-}
-
+    @OneToMany(mappedBy = "warranty", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AlertLog> alertLogs;
 }

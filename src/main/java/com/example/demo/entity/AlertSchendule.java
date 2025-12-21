@@ -1,12 +1,15 @@
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+package com.example.demo.entity;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Table(name = "alert_schedules")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class AlertSchedule {
 
     @Id
@@ -14,41 +17,10 @@ public class AlertSchedule {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "warranty_id", nullable = false)
     private Warranty warranty;
 
     private Integer daysBeforeExpiry;
-    private boolean enabled;
 
-    public Long getId() {
-    return id;
-}
-
-public void setId(Long id) {
-    this.id = id;
-}
-
-public Warranty getWarranty() {
-    return warranty;
-}
-
-public void setWarranty(Warranty warranty) {
-    this.warranty = warranty;
-}
-
-public Integer getDaysBeforeExpiry() {
-    return daysBeforeExpiry;
-}
-
-public void setDaysBeforeExpiry(Integer daysBeforeExpiry) {
-    this.daysBeforeExpiry = daysBeforeExpiry;
-}
-
-public boolean isEnabled() {
-    return enabled;
-}
-
-public void setEnabled(boolean enabled) {
-    this.enabled = enabled;
-}
-
+    private Boolean enabled;
 }
