@@ -1,10 +1,8 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.AlertSchedule;
-import com.example.demo.entity.Warranty;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.AlertScheduleRepository;
-import com.example.demo.repository.WarrantyRepository;
 import com.example.demo.service.AlertScheduleService;
 import org.springframework.stereotype.Service;
 
@@ -14,31 +12,39 @@ import java.util.List;
 public class AlertScheduleServiceImpl implements AlertScheduleService {
 
     private final AlertScheduleRepository alertScheduleRepository;
-    private final WarrantyRepository warrantyRepository;
 
-    public AlertScheduleServiceImpl(AlertScheduleRepository alertScheduleRepository,
-                                    WarrantyRepository warrantyRepository) {
+    public AlertScheduleServiceImpl(AlertScheduleRepository alertScheduleRepository) {
         this.alertScheduleRepository = alertScheduleRepository;
-        this.warrantyRepository = warrantyRepository;
     }
 
     @Override
-    public AlertSchedule createSchedule(Long warrantyId, AlertSchedule schedule) {
-
-        Warranty warranty = warrantyRepository.findById(warrantyId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Warranty not found"));
-
-        if (schedule.getDaysBeforeExpiry() < 0) {
-            throw new IllegalArgumentException("daysBeforeExpiry must be >= 0");
-        }
-
-        schedule.setWarranty(warranty);
-        return alertScheduleRepository.save(schedule);
+    public AlertSchedule createAlertSchedule(AlertSchedule alertSchedule) {
+        return alertScheduleRepository.save(alertSchedule);
     }
 
     @Override
-    public List<AlertSchedule> getSchedules(Long warrantyId) {
-        return alertScheduleRepository.findByWarrantyId(warrantyId);
+    public AlertSchedule getAlertScheduleById(Long id) {
+        return alertScheduleRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("AlertSchedule not found with id: " + id));
+    }
+
+    @Override
+    public List<AlertSchedule> getAllAlertSchedules() {
+        return alertScheduleRepository.findAll();
+    }
+
+    @Override
+    public AlertSchedule updateAlertSchedule(Long id, AlertSchedule updatedAlertSchedule) {
+        AlertSchedule alertSchedule = getAlertScheduleById(id);
+        alertSchedule.setName(updatedAlertSchedule.getName());
+        alertSchedule.setTime(updatedAlertSchedule.getTime());
+        // add other fields
+        return alertScheduleRepository.save(alertSchedule);
+    }
+
+    @Override
+    public void deleteAlertSchedule(Long id) {
+        AlertSchedule alertSchedule = getAlertScheduleById(id);
+        alertScheduleRepository.delete(alertSchedule);
     }
 }
