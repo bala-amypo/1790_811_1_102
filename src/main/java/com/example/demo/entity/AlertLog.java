@@ -1,24 +1,27 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "alert_logs")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Builder
 public class AlertLog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String message;
-    private LocalDateTime timestamp;
+    private Long userId;
 
-    @ManyToOne
-    private User user;
+    private String message;
+
+    private LocalDateTime timestamp;
 }
