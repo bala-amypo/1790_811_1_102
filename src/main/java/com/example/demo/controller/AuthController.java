@@ -1,12 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.User;
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
-import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,41 +13,24 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
-    public AuthController(UserService userService,
-                          PasswordEncoder passwordEncoder) {
+    public AuthController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
-        User user = User.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .password(request.getPassword())
-                .role(request.getRole())
-                .build();
-
-        return ResponseEntity.ok(userService.register(user));
+    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setRole(request.getRole());
+        userService.createUser(user);  // method in UserServiceImpl
+        return ResponseEntity.ok("User registered successfully");
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        User user = userService.findByEmail(request.getEmail());
-
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Invalid credentials");
-        }
-
-        AuthResponse response = new AuthResponse(
-                "dummy-token-for-now",
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
-        );
-
-        return ResponseEntity.ok(response);
-    }
-}
+        User user = userService.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        // Basic password check (replace with encoder in real projects)
