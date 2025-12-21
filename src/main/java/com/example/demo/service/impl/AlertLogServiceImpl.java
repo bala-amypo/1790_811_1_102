@@ -1,50 +1,40 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.AlertLog;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.AlertLogRepository;
 import com.example.demo.service.AlertLogService;
+import com.example.demo.exception.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AlertLogServiceImpl implements AlertLogService {
 
     private final AlertLogRepository alertLogRepository;
 
-    public AlertLogServiceImpl(AlertLogRepository alertLogRepository) {
-        this.alertLogRepository = alertLogRepository;
+    @Override
+    public List<AlertLog> getLogs(Long userId) {
+        return alertLogRepository.findByUserId(userId);
     }
 
     @Override
-    public AlertLog createAlertLog(AlertLog alertLog) {
-        return alertLogRepository.save(alertLog);
+    public AlertLog createLog(AlertLog log) {
+        return alertLogRepository.save(log);
     }
 
     @Override
-    public AlertLog getAlertLogById(Long id) {
-        return alertLogRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("AlertLog not found with id: " + id));
+    public AlertLog updateLog(Long id, AlertLog updatedLog) {
+        AlertLog log = alertLogRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Log not found"));
+        log.setMessage(updatedLog.getMessage());
+        log.setTimestamp(updatedLog.getTimestamp());
+        return alertLogRepository.save(log);
     }
 
     @Override
-    public List<AlertLog> getAllAlertLogs() {
-        return alertLogRepository.findAll();
-    }
-
-    @Override
-    public AlertLog updateAlertLog(Long id, AlertLog updatedAlertLog) {
-        AlertLog alertLog = getAlertLogById(id);
-        alertLog.setMessage(updatedAlertLog.getMessage());
-        alertLog.setTimestamp(updatedAlertLog.getTimestamp());
-        // add other fields as necessary
-        return alertLogRepository.save(alertLog);
-    }
-
-    @Override
-    public void deleteAlertLog(Long id) {
-        AlertLog alertLog = getAlertLogById(id);
-        alertLogRepository.delete(alertLog);
+    public void deleteLog(Long id) {
+        alertLogRepository.deleteById(id);
     }
 }
