@@ -1,11 +1,12 @@
-package com.example.warranty.service;
+package com.example.demo.service;
+
+import com.example.demo.entity.Product;
 
 import java.util.List;
-import com.example.warranty.entity.Product;
 
 public interface ProductService {
 
-    Product save(Product product);
+    Product addProduct(Product product);
 
-    List<Product> getByUser(Long userId);
+    List<Product> getAllProducts();
 }

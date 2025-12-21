@@ -1,22 +1,12 @@
-package com.example.warranty.service.impl;
+package com.example.demo.service;
+
+import com.example.demo.entity.AlertSchedule;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+public interface AlertScheduleService {
 
-import com.example.warranty.entity.AlertLog;
-import com.example.warranty.repository.AlertLogRepository;
-import com.example.warranty.service.AlertService;
+    AlertSchedule createSchedule(Long warrantyId, AlertSchedule schedule);
 
-@Service
-public class AlertServiceImpl implements AlertService {
-
-    @Autowired
-    private AlertLogRepository alertLogRepository;
-
-    @Override
-    public List<AlertLog> getAllLogs() {
-        return alertLogRepository.findAll();
-    }
+    List<AlertSchedule> getSchedules(Long warrantyId);
 }

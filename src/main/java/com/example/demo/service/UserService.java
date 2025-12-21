@@ -1,11 +1,10 @@
-package com.example.warranty.service;
+package com.example.demo.service;
 
-import java.util.Optional;
-import com.example.warranty.entity.User;
+import com.example.demo.entity.User;
 
 public interface UserService {
 
     User register(User user);
 
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
 }

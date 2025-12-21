@@ -1,14 +1,12 @@
-package com.example.warranty.service;
+package com.example.demo.service;
+
+import com.example.demo.entity.AlertLog;
 
 import java.util.List;
 
-import com.example.warranty.entity.AlertLog;
-
 public interface AlertLogService {
 
-    AlertLog save(AlertLog alertLog);
+    AlertLog addLog(Long warrantyId, String message);
 
-    List<AlertLog> getAll();
-
-    List<AlertLog> getByWarrantyId(Long warrantyId);
+    List<AlertLog> getLogs(Long warrantyId);
 }
