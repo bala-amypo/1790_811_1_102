@@ -19,24 +19,34 @@ public class Warranty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    @Column(nullable = false)
     private LocalDate purchaseDate;
 
+    @Column(nullable = false)
     private LocalDate expiryDate;
 
     @Column(unique = true, nullable = false)
     private String serialNumber;
 
-    @OneToMany(mappedBy = "warranty", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(
+            mappedBy = "warranty",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<AlertSchedule> alertSchedules;
 
-    @OneToMany(mappedBy = "warranty", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(
+            mappedBy = "warranty",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<AlertLog> alertLogs;
 }
