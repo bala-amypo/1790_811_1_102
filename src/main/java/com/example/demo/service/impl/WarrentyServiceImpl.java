@@ -3,32 +3,33 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.Product;
 import com.example.demo.entity.User;
 import com.example.demo.entity.Warranty;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.WarrantyRepository;
 import com.example.demo.service.WarrantyService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class WarrantyServiceImpl implements WarrantyService {
 
     private final WarrantyRepository warrantyRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
+    public WarrantyServiceImpl(WarrantyRepository warrantyRepository,
+                               UserRepository userRepository,
+                               ProductRepository productRepository) {
+        this.warrantyRepository = warrantyRepository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
+    }
+
     @Override
-    public Warranty createWarranty(Warranty warranty, Long userId, Long productId) {
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+    public Warranty registerWarranty(Long userId, Long productId, Warranty warranty) {
+        User user = userRepository.findById(userId).orElseThrow();
+        Product product = productRepository.findById(productId).orElseThrow();
 
         warranty.setUser(user);
         warranty.setProduct(product);
@@ -37,21 +38,18 @@ public class WarrantyServiceImpl implements WarrantyService {
     }
 
     @Override
-    public Warranty getWarrantyById(Long id) {
-        return warrantyRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Warranty not found"));
+    public Warranty getWarranty(Long warrantyId) {
+        return warrantyRepository.findById(warrantyId).orElseThrow();
     }
 
     @Override
-    public List<Warranty> getAllWarranties() {
-        return warrantyRepository.findAll();
+    public List<Warranty> getUserWarranties(Long userId) {
+        return warrantyRepository.findByUserId(userId);
     }
 
     @Override
-    public Warranty updateWarranty(Long id, Warranty updatedWarranty) {
-
-        Warranty existing = warrantyRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Warranty not found"));
+    public Warranty updateWarranty(Long warrantyId, Warranty updatedWarranty) {
+        Warranty existing = warrantyRepository.findById(warrantyId).orElseThrow();
 
         existing.setPurchaseDate(updatedWarranty.getPurchaseDate());
         existing.setExpiryDate(updatedWarranty.getExpiryDate());
@@ -61,10 +59,7 @@ public class WarrantyServiceImpl implements WarrantyService {
     }
 
     @Override
-    public void deleteWarranty(Long id) {
-        Warranty warranty = warrantyRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Warranty not found"));
-
-        warrantyRepository.delete(warranty);
+    public void deleteWarranty(Long warrantyId) {
+        warrantyRepository.deleteById(warrantyId);
     }
 }

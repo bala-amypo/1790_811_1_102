@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface WarrantyService {
 
-    Warranty createWarranty(Warranty warranty, Long userId, Long productId);
+    Warranty registerWarranty(Long userId, Long productId, Warranty warranty);
 
-    Warranty getWarrantyById(Long id);
+    Warranty getWarranty(Long warrantyId);
 
-    List<Warranty> getAllWarranties();
+    List<Warranty> getUserWarranties(Long userId);
 
-    Warranty updateWarranty(Long id, Warranty warranty);
+    Warranty updateWarranty(Long warrantyId, Warranty warranty);
 
-    void deleteWarranty(Long id);
+    void deleteWarranty(Long warrantyId);
 }
