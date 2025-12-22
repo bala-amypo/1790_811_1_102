@@ -1,4 +1,5 @@
 package com.example.demo.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -28,9 +29,11 @@ public class Warranty {
     private String serialNumber;
 
     @OneToMany(mappedBy = "warranty", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<AlertSchedule> alertSchedules;
 
     @OneToMany(mappedBy = "warranty", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<AlertLog> alertLogs;
 
     // No-argument constructor
