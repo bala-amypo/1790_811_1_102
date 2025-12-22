@@ -28,10 +28,10 @@ public class AlertLogServiceImpl implements AlertLogService {
         Warranty warranty = warrantyRepository.findById(warrantyId)
                 .orElseThrow(() -> new ResourceNotFoundException("Warranty not found"));
 
-        AlertLog log = AlertLog.builder()
-                .warranty(warranty)
-                .message(message)
-                .build();
+        // Using standard constructor and setters instead of builder
+        AlertLog log = new AlertLog();
+        log.setWarranty(warranty);
+        log.setMessage(message);
 
         return alertLogRepository.save(log);
     }
