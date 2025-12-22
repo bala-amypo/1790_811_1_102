@@ -7,8 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "products")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -25,6 +24,7 @@ public class Product {
     @Column(nullable = false)
     private String modelNumber;
 
+    @Column(nullable = false)
     private String category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
