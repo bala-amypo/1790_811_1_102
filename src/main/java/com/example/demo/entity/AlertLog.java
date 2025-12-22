@@ -1,4 +1,5 @@
 package com.example.demo.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ public class AlertLog {
 
     @ManyToOne
     @JoinColumn(name = "warranty_id", nullable = false)
+    @JsonIgnore
     private Warranty warranty;
 
     private LocalDateTime sentAt;

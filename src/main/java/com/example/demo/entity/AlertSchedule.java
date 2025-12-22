@@ -1,4 +1,5 @@
 package com.example.demo.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -12,6 +13,7 @@ public class AlertSchedule {
 
     @ManyToOne
     @JoinColumn(name = "warranty_id", nullable = false)
+    @JsonIgnore
     private Warranty warranty;
 
     private Integer daysBeforeExpiry;
