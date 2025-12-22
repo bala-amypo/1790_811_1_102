@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/alertlogs")
+@RequestMapping("/logs")
 public class AlertLogController {
 
     private final AlertLogService alertLogService;
@@ -16,13 +16,14 @@ public class AlertLogController {
         this.alertLogService = alertLogService;
     }
 
-    @PostMapping
-    public AlertLog createLog(@RequestBody AlertLog log) {
-        return alertLogService.createLog(log);
+    @PostMapping("/{warrantyId}")
+    public AlertLog addLog(@PathVariable Long warrantyId,
+                           @RequestParam String message) {
+        return alertLogService.addLog(warrantyId, message);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<AlertLog> getLogsByUser(@PathVariable Long userId) {
-        return alertLogService.getLogs(userId);
+    @GetMapping("/{warrantyId}")
+    public List<AlertLog> getLogs(@PathVariable Long warrantyId) {
+        return alertLogService.getLogs(warrantyId);
     }
 }

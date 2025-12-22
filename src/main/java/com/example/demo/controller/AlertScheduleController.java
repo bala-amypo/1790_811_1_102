@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/alertschedules")
+@RequestMapping("/schedules")
 public class AlertScheduleController {
 
     private final AlertScheduleService alertScheduleService;
@@ -16,13 +16,14 @@ public class AlertScheduleController {
         this.alertScheduleService = alertScheduleService;
     }
 
-    @PostMapping
-    public AlertSchedule createSchedule(@RequestBody AlertSchedule schedule) {
-        return alertScheduleService.createSchedule(schedule);
+    @PostMapping("/{warrantyId}")
+    public AlertSchedule createSchedule(@PathVariable Long warrantyId,
+                                        @RequestBody AlertSchedule schedule) {
+        return alertScheduleService.createSchedule(warrantyId, schedule);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<AlertSchedule> getSchedulesByUser(@PathVariable Long userId) {
-        return alertScheduleService.getSchedules(userId);
+    @GetMapping("/{warrantyId}")
+    public List<AlertSchedule> getSchedules(@PathVariable Long warrantyId) {
+        return alertScheduleService.getSchedules(warrantyId);
     }
 }
