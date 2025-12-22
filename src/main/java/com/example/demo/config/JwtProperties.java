@@ -1,35 +1,31 @@
 package com.example.demo.security;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
-@ConfigurationProperties(prefix = "jwt")
+@Component
 public class JwtProperties {
 
-    /**
-     * Secret key used to sign JWT
-     */
-    private String secret;
+    private final String secret = "yourSecretKey12345"; // replace with your actual secret
 
-    /**
-     * Token expiration time in milliseconds
-     */
-    private long expiration;
+    private final long expiration = 3600000;
+
+    private final String tokenPrefix = "Bearer ";
+
+    private final String header = "Authorization";
 
     public String getSecret() {
         return secret;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
     }
 
     public long getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(long expiration) {
-        this.expiration = expiration;
+    public String getTokenPrefix() {
+        return tokenPrefix;
+    }
+
+    public String getHeader() {
+        return header;
     }
 }
