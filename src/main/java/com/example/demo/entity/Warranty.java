@@ -38,10 +38,8 @@ public class Warranty {
     @JsonIgnore
     private List<AlertLog> alertLogs;
 
-    // No-argument constructor
     public Warranty() {}
 
-    // All-argument constructor
     public Warranty(Long id, User user, Product product, LocalDate purchaseDate,
                     LocalDate expiryDate, String serialNumber,
                     List<AlertSchedule> alertSchedules, List<AlertLog> alertLogs) {
@@ -55,7 +53,6 @@ public class Warranty {
         this.alertLogs = alertLogs;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
