@@ -1,11 +1,14 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.AlertLog;
+import com.example.demo.entity.AlertSchedule;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface AlertLogRepository extends JpaRepository<AlertLog, Long> {
+@Repository
+public interface AlertScheduleRepository
+        extends JpaRepository<AlertSchedule, Long> {
 
-    List<AlertLog> findByWarrantyId(Long warrantyId);
+    List<AlertSchedule> findByWarrantyId(Long warrantyId);
 }
