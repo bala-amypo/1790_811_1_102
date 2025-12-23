@@ -19,7 +19,7 @@ public class SwaggerConfig {
                         .version("1.0")
                         .description("API documentation for the Digital Warranty Tracker application"))
                 .servers(List.of(
-                        new Server().url("https://9031.408procr.amypo.ai/")
+                        new Server().url("https://9392.pro604cr.amypo.ai/")
                 ));
     }
 }
