@@ -26,10 +26,8 @@ public class User {
     @JsonIgnore
     private List<Warranty> warranties;
 
-    // No-argument constructor
     public User() {}
 
-    // All-argument constructor
     public User(Long id, String name, String email, String password, String role, List<Warranty> warranties) {
         this.id = id;
         this.name = name;
@@ -39,7 +37,6 @@ public class User {
         this.warranties = warranties;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

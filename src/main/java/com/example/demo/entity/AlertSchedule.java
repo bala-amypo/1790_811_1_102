@@ -20,10 +20,8 @@ public class AlertSchedule {
 
     private Boolean enabled;
 
-    // No-argument constructor
     public AlertSchedule() {}
 
-    // All-argument constructor
     public AlertSchedule(Long id, Warranty warranty, Integer daysBeforeExpiry, Boolean enabled) {
         this.id = id;
         this.warranty = warranty;
@@ -31,7 +29,6 @@ public class AlertSchedule {
         this.enabled = enabled;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
