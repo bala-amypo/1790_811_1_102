@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthResponse authenticateUser(AuthRequest request) {
-        // Implement JWT authentication here
-        return new AuthResponse("dummy-token"); // placeholder
+        // Placeholder authentication
+        return new AuthResponse("dummy-token");
     }
 }
