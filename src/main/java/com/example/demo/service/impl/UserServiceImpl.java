@@ -35,7 +35,13 @@ public class UserServiceImpl implements UserService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
-        // Here you should generate JWT token
-        return "dummy-jwt-token"; 
+        // For now, return dummy JWT token
+        return "dummy-jwt-token";
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }
