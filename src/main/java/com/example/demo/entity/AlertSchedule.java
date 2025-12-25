@@ -1,5 +1,4 @@
 package com.example.demo.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -13,31 +12,43 @@ public class AlertSchedule {
 
     @ManyToOne
     @JoinColumn(name = "warranty_id", nullable = false)
-    @JsonIgnore
     private Warranty warranty;
 
     private Integer daysBeforeExpiry;
-
     private Boolean enabled;
 
-    public AlertSchedule() {}
-
-    public AlertSchedule(Long id, Warranty warranty, Integer daysBeforeExpiry, Boolean enabled) {
-        this.id = id;
-        this.warranty = warranty;
-        this.daysBeforeExpiry = daysBeforeExpiry;
-        this.enabled = enabled;
+    public AlertSchedule() {
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Warranty getWarranty() { return warranty; }
-    public void setWarranty(Warranty warranty) { this.warranty = warranty; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Integer getDaysBeforeExpiry() { return daysBeforeExpiry; }
-    public void setDaysBeforeExpiry(Integer daysBeforeExpiry) { this.daysBeforeExpiry = daysBeforeExpiry; }
+    public Warranty getWarranty() {
+        return warranty;
+    }
 
-    public Boolean getEnabled() { return enabled; }
-    public void setEnabled(Boolean enabled) { this.enabled = enabled; }
+    public void setWarranty(Warranty warranty) {
+        this.warranty = warranty;
+    }
+
+    public Integer getDaysBeforeExpiry() {
+        return daysBeforeExpiry;
+    }
+
+    public void setDaysBeforeExpiry(Integer daysBeforeExpiry) {
+        this.daysBeforeExpiry = daysBeforeExpiry;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 }

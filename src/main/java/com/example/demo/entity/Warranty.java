@@ -1,5 +1,4 @@
 package com.example.demo.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -15,65 +14,72 @@ public class Warranty {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    @JsonIgnore
     private Product product;
 
     private LocalDate purchaseDate;
-
     private LocalDate expiryDate;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String serialNumber;
 
     @OneToMany(mappedBy = "warranty", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<AlertSchedule> alertSchedules;
 
     @OneToMany(mappedBy = "warranty", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<AlertLog> alertLogs;
 
-    public Warranty() {}
-
-    public Warranty(Long id, User user, Product product, LocalDate purchaseDate,
-                    LocalDate expiryDate, String serialNumber,
-                    List<AlertSchedule> alertSchedules, List<AlertLog> alertLogs) {
-        this.id = id;
-        this.user = user;
-        this.product = product;
-        this.purchaseDate = purchaseDate;
-        this.expiryDate = expiryDate;
-        this.serialNumber = serialNumber;
-        this.alertSchedules = alertSchedules;
-        this.alertLogs = alertLogs;
+    public Warranty() {
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Product getProduct() { return product; }
-    public void setProduct(Product product) { this.product = product; }
+    public User getUser() {
+        return user;
+    }
 
-    public LocalDate getPurchaseDate() { return purchaseDate; }
-    public void setPurchaseDate(LocalDate purchaseDate) { this.purchaseDate = purchaseDate; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public LocalDate getExpiryDate() { return expiryDate; }
-    public void setExpiryDate(LocalDate expiryDate) { this.expiryDate = expiryDate; }
+    public Product getProduct() {
+        return product;
+    }
 
-    public String getSerialNumber() { return serialNumber; }
-    public void setSerialNumber(String serialNumber) { this.serialNumber = serialNumber; }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-    public List<AlertSchedule> getAlertSchedules() { return alertSchedules; }
-    public void setAlertSchedules(List<AlertSchedule> alertSchedules) { this.alertSchedules = alertSchedules; }
+    public LocalDate getPurchaseDate() {
+        return purchaseDate;
+    }
 
-    public List<AlertLog> getAlertLogs() { return alertLogs; }
-    public void setAlertLogs(List<AlertLog> alertLogs) { this.alertLogs = alertLogs; }
+    public void setPurchaseDate(LocalDate purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
+    public LocalDate getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(LocalDate expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 }

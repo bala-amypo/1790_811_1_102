@@ -1,5 +1,4 @@
 package com.example.demo.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -14,36 +13,48 @@ public class AlertLog {
 
     @ManyToOne
     @JoinColumn(name = "warranty_id", nullable = false)
-    @JsonIgnore
     private Warranty warranty;
 
     private LocalDateTime sentAt;
-
     private String message;
 
-    public AlertLog() {}
-
-    public AlertLog(Long id, Warranty warranty, LocalDateTime sentAt, String message) {
-        this.id = id;
-        this.warranty = warranty;
-        this.sentAt = sentAt;
-        this.message = message;
+    public AlertLog() {
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Warranty getWarranty() { return warranty; }
-    public void setWarranty(Warranty warranty) { this.warranty = warranty; }
-
-    public LocalDateTime getSentAt() { return sentAt; }
-    public void setSentAt(LocalDateTime sentAt) { this.sentAt = sentAt; }
-
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
-
-      @PrePersist
+    @PrePersist
     protected void onCreate() {
         this.sentAt = LocalDateTime.now();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Warranty getWarranty() {
+        return warranty;
+    }
+
+    public void setWarranty(Warranty warranty) {
+        this.warranty = warranty;
+    }
+
+    public LocalDateTime getSentAt() {
+        return sentAt;
+    }
+
+    public void setSentAt(LocalDateTime sentAt) {
+        this.sentAt = sentAt;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
