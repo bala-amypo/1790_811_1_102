@@ -1,31 +1,62 @@
-    package com.example.demo.security;
+package com.example.demo.config;
 
-    import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-    @Component
-    public class JwtProperties {
+@Component
+@ConfigurationProperties(prefix = "jwt")
+public class JwtProperties {
 
-        private final String secret = "yourSecretKey12345"; // replace with your actual secret
+    /**
+     * Secret key used for signing JWT tokens
+     */
+    private String secret;
 
-        private final long expiration = 3600000;
+    /**
+     * Token validity in milliseconds
+     */
+    private long expirationMs;
 
-        private final String tokenPrefix = "Bearer ";
+    /**
+     * Token prefix, e.g., "Bearer "
+     */
+    private String tokenPrefix;
 
-        private final String header = "Authorization";
+    /**
+     * Header where JWT token is sent, e.g., "Authorization"
+     */
+    private String header;
 
-        public String getSecret() {
-            return secret;
-        }
-
-        public long getExpiration() {
-            return expiration;
-        }
-
-        public String getTokenPrefix() {
-            return tokenPrefix;
-        }
-
-        public String getHeader() {
-            return header;
-        }
+    // Getters and Setters
+    public String getSecret() {
+        return secret;
     }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public long getExpirationMs() {
+        return expirationMs;
+    }
+
+    public void setExpirationMs(long expirationMs) {
+        this.expirationMs = expirationMs;
+    }
+
+    public String getTokenPrefix() {
+        return tokenPrefix;
+    }
+
+    public void setTokenPrefix(String tokenPrefix) {
+        this.tokenPrefix = tokenPrefix;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+}
