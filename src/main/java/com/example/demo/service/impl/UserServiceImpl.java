@@ -1,8 +1,8 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.dto.RegisterRequest;
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
@@ -20,28 +20,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     @Override
     public User registerUser(RegisterRequest request) {
-        if (userRepository.findByUsername(request.getUsername()) != null) {
-            throw new RuntimeException("Username already exists");
-        }
-
         User user = new User();
-        user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword()); // encode in real project
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setRole(request.getRole());
         return userRepository.save(user);
     }
 
     @Override
     public AuthResponse authenticateUser(AuthRequest request) {
-        User user = userRepository.findByUsername(request.getUsername());
-        if (user != null && user.getPassword().equals(request.getPassword())) {
-            return new AuthResponse("Authentication successful");
-        } else {
-            throw new RuntimeException("Invalid username or password");
-        }
+        // Implement JWT authentication here
+        return new AuthResponse("dummy-token"); // placeholder
     }
 }
