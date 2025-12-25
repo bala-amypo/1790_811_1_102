@@ -18,6 +18,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addProduct(Product product) {
+
         if (product.getModelNumber() == null || product.getModelNumber().isBlank()) {
             throw new IllegalArgumentException("Model number required");
         }

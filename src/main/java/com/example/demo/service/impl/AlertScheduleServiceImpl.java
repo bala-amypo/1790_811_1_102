@@ -30,7 +30,8 @@ public class AlertScheduleServiceImpl implements AlertScheduleService {
         }
 
         Warranty warranty = warrantyRepository.findById(warrantyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Warranty not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Warranty not found"));
 
         schedule.setWarranty(warranty);
         return alertScheduleRepository.save(schedule);
@@ -38,6 +39,11 @@ public class AlertScheduleServiceImpl implements AlertScheduleService {
 
     @Override
     public List<AlertSchedule> getSchedules(Long warrantyId) {
+
+        if (!warrantyRepository.existsById(warrantyId)) {
+            throw new ResourceNotFoundException("Warranty not found");
+        }
+
         return alertScheduleRepository.findByWarrantyId(warrantyId);
     }
 }

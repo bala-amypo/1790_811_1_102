@@ -26,9 +26,9 @@ public class AlertLogServiceImpl implements AlertLogService {
     public AlertLog addLog(Long warrantyId, String message) {
 
         Warranty warranty = warrantyRepository.findById(warrantyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Warranty not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Warranty not found"));
 
-        // Using standard constructor and setters instead of builder
         AlertLog log = new AlertLog();
         log.setWarranty(warranty);
         log.setMessage(message);
@@ -38,6 +38,11 @@ public class AlertLogServiceImpl implements AlertLogService {
 
     @Override
     public List<AlertLog> getLogs(Long warrantyId) {
+
+        if (!warrantyRepository.existsById(warrantyId)) {
+            throw new ResourceNotFoundException("Warranty not found");
+        }
+
         return alertLogRepository.findByWarrantyId(warrantyId);
     }
 }

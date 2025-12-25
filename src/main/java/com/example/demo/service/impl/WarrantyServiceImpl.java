@@ -10,6 +10,7 @@ import com.example.demo.repository.WarrantyRepository;
 import com.example.demo.service.WarrantyService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -31,13 +32,16 @@ public class WarrantyServiceImpl implements WarrantyService {
     public Warranty registerWarranty(Long userId, Long productId, Warranty warranty) {
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
 
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Product not found"));
 
         if (!warranty.getExpiryDate().isAfter(warranty.getPurchaseDate())) {
-            throw new IllegalArgumentException("Expiry date must be after purchase date");
+            throw new IllegalArgumentException(
+                    "Expiry date must be after purchase date");
         }
 
         if (warrantyRepository.existsBySerialNumber(warranty.getSerialNumber())) {
@@ -52,12 +56,19 @@ public class WarrantyServiceImpl implements WarrantyService {
 
     @Override
     public Warranty getWarranty(Long warrantyId) {
+
         return warrantyRepository.findById(warrantyId)
-                .orElseThrow(() -> new ResourceNotFoundException("Warranty not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Warranty not found"));
     }
 
     @Override
     public List<Warranty> getUserWarranties(Long userId) {
+
+        if (!userRepository.existsById(userId)) {
+            throw new ResourceNotFoundException("User not found");
+        }
+
         return warrantyRepository.findByUserId(userId);
     }
 }
