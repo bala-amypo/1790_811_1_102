@@ -8,8 +8,6 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -27,14 +25,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerUser(RegisterRequest request) {
-        // Check if username already exists
         if (userRepository.findByUsername(request.getUsername()) != null) {
             throw new RuntimeException("Username already exists");
         }
 
         User user = new User();
         user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword()); // For real projects, encode the password
+        user.setPassword(request.getPassword()); // encode in real project
         return userRepository.save(user);
     }
 
