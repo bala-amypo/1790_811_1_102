@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.AlertLog;
 import com.example.demo.service.AlertLogService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +18,21 @@ public class AlertLogController {
     }
 
     @PostMapping("/{warrantyId}")
-    public AlertLog addLog(@PathVariable Long warrantyId,
-                           @RequestParam String message) {
-        return alertLogService.addLog(warrantyId, message);
+    public ResponseEntity<AlertLog> addLog(
+            @PathVariable Long warrantyId,
+            @RequestParam String message) {
+
+        return ResponseEntity.ok(
+                alertLogService.addLog(warrantyId, message)
+        );
     }
 
     @GetMapping("/{warrantyId}")
-    public List<AlertLog> getLogs(@PathVariable Long warrantyId) {
-        return alertLogService.getLogs(warrantyId);
+    public ResponseEntity<List<AlertLog>> getLogs(
+            @PathVariable Long warrantyId) {
+
+        return ResponseEntity.ok(
+                alertLogService.getLogs(warrantyId)
+        );
     }
 }
