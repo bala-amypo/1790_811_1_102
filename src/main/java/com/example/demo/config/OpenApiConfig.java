@@ -1,11 +1,9 @@
 package com.example.demo.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.servers.Server;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
 
 @Configuration
 public class OpenApiConfig {
@@ -13,8 +11,9 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
-                .servers(List.of(
-                        new Server().url("https://9392.pro604cr.amypo.ai/").description("Local server")
-                ));
+                .info(new Info()
+                        .title("Digital Warranty Tracker API")
+                        .description("API documentation for Digital Warranty Tracker")
+                        .version("1.0.0"));
     }
 }
