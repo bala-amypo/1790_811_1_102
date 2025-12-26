@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "alert_schedules")
@@ -11,42 +10,20 @@ public class AlertSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate alertDate;
+    @Column(nullable = false)
+    private int daysBeforeExpiry;   // 🔴 REQUIRED
 
-    @OneToOne
-    @JoinColumn(name = "warranty_id", nullable = false)
-    private Warranty warranty;
+    public AlertSchedule() {}
 
-    public AlertSchedule() {
-    }
-
-    public AlertSchedule(Long id, LocalDate alertDate) {
-        this.id = id;
-        this.alertDate = alertDate;
-    }
-
-    // Getters & Setters
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public int getDaysBeforeExpiry() {   // ✅ REQUIRED
+        return daysBeforeExpiry;
     }
 
-    public LocalDate getAlertDate() {
-        return alertDate;
-    }
-
-    public void setAlertDate(LocalDate alertDate) {
-        this.alertDate = alertDate;
-    }
-
-    public Warranty getWarranty() {
-        return warranty;
-    }
-
-    public void setWarranty(Warranty warranty) {
-        this.warranty = warranty;
+    public void setDaysBeforeExpiry(int daysBeforeExpiry) {
+        this.daysBeforeExpiry = daysBeforeExpiry;
     }
 }

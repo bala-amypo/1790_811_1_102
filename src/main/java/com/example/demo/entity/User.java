@@ -13,21 +13,19 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false, unique = true)
+    private String email;   // ✅ ADD
+
     @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
-    private String role;   // 🔴 REQUIRED
+    private String role;
 
     public User() {}
 
-    // getters & setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -38,6 +36,14 @@ public class User {
         this.username = username;
     }
 
+    public String getEmail() {        // ✅ REQUIRED
+        return email;
+    }
+
+    public void setEmail(String email) {  // ✅ REQUIRED
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -46,11 +52,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {      // ✅ REQUIRED
+    public String getRole() {
         return role;
     }
 
-    public void setRole(String role) {   // ✅ REQUIRED
+    public void setRole(String role) {
         this.role = role;
     }
 }
