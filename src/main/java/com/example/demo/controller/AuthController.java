@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
 import com.example.demo.dto.RegisterRequest;
+import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +19,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
-        userService.registerUser(request);
-        return ResponseEntity.ok("User registered successfully");
+    public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(userService.registerUser(request));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        String token = userService.authenticateUser(request);
-        return ResponseEntity.ok(new AuthResponse(token));
+        return ResponseEntity.ok(userService.authenticateUser(request));
     }
 }
