@@ -2,30 +2,24 @@ package com.example.demo.security;
 
 import com.example.demo.entity.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final User user;
+    private User user;
 
-    public CustomUserDetails(User user) {
-        this.user = user;
-    }
+    public CustomUserDetails(User user) { this.user = user; }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(user.getRole()));
-    }
+    public Collection<? extends GrantedAuthority> getAuthorities() { return Collections.emptyList(); }
 
     @Override
     public String getPassword() { return user.getPassword(); }
 
     @Override
-    public String getUsername() { return user.getEmail(); }
+    public String getUsername() { return user.getUsername(); }
 
     @Override
     public boolean isAccountNonExpired() { return true; }
