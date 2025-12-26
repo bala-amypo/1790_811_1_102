@@ -10,28 +10,21 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepository productRepository;
+    private final ProductRepository repo;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public ProductServiceImpl(ProductRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public Product addProduct(Product product) {
-
-        if (product.getModelNumber() == null || product.getModelNumber().isBlank()) {
+    public Product addProduct(Product p) {
+        if (p.getModelNumber() == null)
             throw new IllegalArgumentException("Model number required");
-        }
-
-        if (product.getCategory() == null || product.getCategory().isBlank()) {
+        if (p.getCategory() == null)
             throw new IllegalArgumentException("Category required");
-        }
-
-        return productRepository.save(product);
+        return repo.save(p);
     }
 
-    @Override
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return repo.findAll();
     }
 }
