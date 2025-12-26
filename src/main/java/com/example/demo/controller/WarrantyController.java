@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Warranty;
 import com.example.demo.service.WarrantyService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,30 +10,26 @@ import java.util.List;
 @RequestMapping("/warranties")
 public class WarrantyController {
 
-    private final WarrantyService warrantyService;
+    private final WarrantyService service;
 
-    public WarrantyController(WarrantyService warrantyService) {
-        this.warrantyService = warrantyService;
+    public WarrantyController(WarrantyService service) {
+        this.service = service;
     }
 
     @PostMapping("/register/{userId}/{productId}")
-    public ResponseEntity<Warranty> registerWarranty(
-            @PathVariable Long userId,
-            @PathVariable Long productId,
-            @RequestBody Warranty warranty) {
-
-        return ResponseEntity.ok(
-                warrantyService.registerWarranty(userId, productId, warranty)
-        );
+    public Warranty register(@PathVariable Long userId,
+                             @PathVariable Long productId,
+                             @RequestBody Warranty w) {
+        return service.registerWarranty(userId, productId, w);
     }
 
-    @GetMapping("/{warrantyId}")
-    public ResponseEntity<Warranty> getWarranty(@PathVariable Long warrantyId) {
-        return ResponseEntity.ok(warrantyService.getWarranty(warrantyId));
+    @GetMapping("/{id}")
+    public Warranty get(@PathVariable Long id) {
+        return service.getWarranty(id);
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Warranty>> getUserWarranties(@PathVariable Long userId) {
-        return ResponseEntity.ok(warrantyService.getUserWarranties(userId));
+    public List<Warranty> userWarranties(@PathVariable Long userId) {
+        return service.getUserWarranties(userId);
     }
 }

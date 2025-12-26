@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.AlertSchedule;
 import com.example.demo.service.AlertScheduleService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,28 +10,20 @@ import java.util.List;
 @RequestMapping("/schedules")
 public class AlertScheduleController {
 
-    private final AlertScheduleService alertScheduleService;
+    private final AlertScheduleService service;
 
-    public AlertScheduleController(AlertScheduleService alertScheduleService) {
-        this.alertScheduleService = alertScheduleService;
+    public AlertScheduleController(AlertScheduleService service) {
+        this.service = service;
     }
 
     @PostMapping("/{warrantyId}")
-    public ResponseEntity<AlertSchedule> createSchedule(
-            @PathVariable Long warrantyId,
-            @RequestBody AlertSchedule schedule) {
-
-        return ResponseEntity.ok(
-                alertScheduleService.createSchedule(warrantyId, schedule)
-        );
+    public AlertSchedule create(@PathVariable Long warrantyId,
+                                @RequestBody AlertSchedule s) {
+        return service.createSchedule(warrantyId, s);
     }
 
     @GetMapping("/{warrantyId}")
-    public ResponseEntity<List<AlertSchedule>> getSchedules(
-            @PathVariable Long warrantyId) {
-
-        return ResponseEntity.ok(
-                alertScheduleService.getSchedules(warrantyId)
-        );
+    public List<AlertSchedule> list(@PathVariable Long warrantyId) {
+        return service.getSchedules(warrantyId);
     }
 }

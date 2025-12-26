@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Product;
 import com.example.demo.service.ProductService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,19 +10,19 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductService service;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    public ProductController(ProductService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-        return ResponseEntity.ok(productService.addProduct(product));
+    public Product add(@RequestBody Product p) {
+        return service.addProduct(p);
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        return ResponseEntity.ok(productService.getAllProducts());
+    public List<Product> all() {
+        return service.getAllProducts();
     }
 }
