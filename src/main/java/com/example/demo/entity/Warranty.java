@@ -2,7 +2,6 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "warranties")
@@ -12,6 +11,15 @@ public class Warranty {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String serialNumber;
+
+    @Column(nullable = false)
+    private LocalDate purchaseDate;
+
+    @Column(nullable = false)
+    private LocalDate expiryDate;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -20,21 +28,20 @@ public class Warranty {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    private LocalDate purchaseDate;
-    private LocalDate expiryDate;
-
-    @Column(unique = true)
-    private String serialNumber;
-
-    @OneToMany(mappedBy = "warranty", cascade = CascadeType.ALL)
-    private List<AlertSchedule> alertSchedules;
-
-    @OneToMany(mappedBy = "warranty", cascade = CascadeType.ALL)
-    private List<AlertLog> alertLogs;
+    @OneToOne(mappedBy = "warranty", cascade = CascadeType.ALL)
+    private AlertSchedule alertSchedule;
 
     public Warranty() {
     }
 
+    public Warranty(Long id, String serialNumber, LocalDate purchaseDate, LocalDate expiryDate) {
+        this.id = id;
+        this.serialNumber = serialNumber;
+        this.purchaseDate = purchaseDate;
+        this.expiryDate = expiryDate;
+    }
+
+    // Getters & Setters
     public Long getId() {
         return id;
     }
@@ -43,20 +50,12 @@ public class Warranty {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public String getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public LocalDate getPurchaseDate() {
@@ -75,11 +74,27 @@ public class Warranty {
         this.expiryDate = expiryDate;
     }
 
-    public String getSerialNumber() {
-        return serialNumber;
+    public User getUser() {
+        return user;
     }
 
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public AlertSchedule getAlertSchedule() {
+        return alertSchedule;
+    }
+
+    public void setAlertSchedule(AlertSchedule alertSchedule) {
+        this.alertSchedule = alertSchedule;
     }
 }

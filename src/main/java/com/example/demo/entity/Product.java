@@ -11,13 +11,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String brand;
-
     @Column(nullable = false)
-    private String modelNumber;
+    private String name;
 
-    private String category;
+    private String brand;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Warranty> warranties;
@@ -25,14 +22,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String name, String brand, String modelNumber, String category) {
+    public Product(Long id, String name, String brand) {
         this.id = id;
         this.name = name;
         this.brand = brand;
-        this.modelNumber = modelNumber;
-        this.category = category;
     }
 
+    // Getters & Setters
     public Long getId() {
         return id;
     }
@@ -55,22 +51,6 @@ public class Product {
 
     public void setBrand(String brand) {
         this.brand = brand;
-    }
-
-    public String getModelNumber() {
-        return modelNumber;
-    }
-
-    public void setModelNumber(String modelNumber) {
-        this.modelNumber = modelNumber;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public List<Warranty> getWarranties() {

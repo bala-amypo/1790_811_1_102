@@ -11,20 +11,27 @@ public class AlertLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String message;
+
+    @Column(nullable = false)
+    private LocalDateTime sentAt;
+
     @ManyToOne
     @JoinColumn(name = "warranty_id", nullable = false)
     private Warranty warranty;
 
-    private LocalDateTime sentAt;
-    private String message;
-
     public AlertLog() {
     }
 
-    @PrePersist
-    protected void onCreate() {
-        this.sentAt = LocalDateTime.now();
+    public AlertLog(Long id, String message, LocalDateTime sentAt, Warranty warranty) {
+        this.id = id;
+        this.message = message;
+        this.sentAt = sentAt;
+        this.warranty = warranty;
     }
+
+    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;
@@ -34,12 +41,12 @@ public class AlertLog {
         this.id = id;
     }
 
-    public Warranty getWarranty() {
-        return warranty;
+    public String getMessage() {
+        return message;
     }
 
-    public void setWarranty(Warranty warranty) {
-        this.warranty = warranty;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public LocalDateTime getSentAt() {
@@ -50,11 +57,11 @@ public class AlertLog {
         this.sentAt = sentAt;
     }
 
-    public String getMessage() {
-        return message;
+    public Warranty getWarranty() {
+        return warranty;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setWarranty(Warranty warranty) {
+        this.warranty = warranty;
     }
 }
