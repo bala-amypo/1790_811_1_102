@@ -11,57 +11,29 @@ public class AlertLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String message;
-
-    @Column(nullable = false)
-    private LocalDateTime sentAt;
-
     @ManyToOne
-    @JoinColumn(name = "warranty_id", nullable = false)
+    @JoinColumn(name = "warranty_id")
     private Warranty warranty;
 
-    public AlertLog() {
+    private LocalDateTime sentAt;
+
+    private String message;
+
+    @PrePersist
+    public void onCreate() {
+        this.sentAt = LocalDateTime.now();
     }
 
-    public AlertLog(Long id, String message, LocalDateTime sentAt, Warranty warranty) {
-        this.id = id;
-        this.message = message;
-        this.sentAt = sentAt;
-        this.warranty = warranty;
-    }
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    // ---------- Getters & Setters ----------
+    public Warranty getWarranty() { return warranty; }
+    public void setWarranty(Warranty warranty) { this.warranty = warranty; }
 
-    public Long getId() {
-        return id;
-    }
+    public LocalDateTime getSentAt() { return sentAt; }
+    public void setSentAt(LocalDateTime sentAt) { this.sentAt = sentAt; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public LocalDateTime getSentAt() {
-        return sentAt;
-    }
-
-    public void setSentAt(LocalDateTime sentAt) {
-        this.sentAt = sentAt;
-    }
-
-    public Warranty getWarranty() {
-        return warranty;
-    }
-
-    public void setWarranty(Warranty warranty) {
-        this.warranty = warranty;
-    }
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
 }

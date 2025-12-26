@@ -3,18 +3,17 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "alert_schedules")
 public class AlertSchedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int daysBeforeExpiry;
-
     @ManyToOne
-    @JoinColumn(name = "warranty_id")
-    private Warranty warranty;   // ✅ ADD
+    private Warranty warranty;
+
+    private Integer daysBeforeExpiry;
+    private Boolean enabled;
 
     public AlertSchedule() {}
 
@@ -22,19 +21,31 @@ public class AlertSchedule {
         return id;
     }
 
-    public int getDaysBeforeExpiry() {
-        return daysBeforeExpiry;
-    }
-
-    public void setDaysBeforeExpiry(int daysBeforeExpiry) {
-        this.daysBeforeExpiry = daysBeforeExpiry;
-    }
-
     public Warranty getWarranty() {
         return warranty;
     }
 
-    public void setWarranty(Warranty warranty) {   // ✅ REQUIRED
+    public Integer getDaysBeforeExpiry() {
+        return daysBeforeExpiry;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setWarranty(Warranty warranty) {
         this.warranty = warranty;
+    }
+
+    public void setDaysBeforeExpiry(Integer daysBeforeExpiry) {
+        this.daysBeforeExpiry = daysBeforeExpiry;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }
