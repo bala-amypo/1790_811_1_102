@@ -7,27 +7,9 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "jwt")
 public class JwtProperties {
 
-    /**
-     * Secret key used for signing JWT tokens
-     */
     private String secret;
+    private long expiration;
 
-    /**
-     * Token validity in milliseconds
-     */
-    private long expirationMs;
-
-    /**
-     * Token prefix, e.g., "Bearer "
-     */
-    private String tokenPrefix;
-
-    /**
-     * Header where JWT token is sent, e.g., "Authorization"
-     */
-    private String header;
-
-    // Getters and Setters
     public String getSecret() {
         return secret;
     }
@@ -36,27 +18,11 @@ public class JwtProperties {
         this.secret = secret;
     }
 
-    public long getExpirationMs() {
-        return expirationMs;
+    public long getExpiration() {
+        return expiration;
     }
 
-    public void setExpirationMs(long expirationMs) {
-        this.expirationMs = expirationMs;
-    }
-
-    public String getTokenPrefix() {
-        return tokenPrefix;
-    }
-
-    public void setTokenPrefix(String tokenPrefix) {
-        this.tokenPrefix = tokenPrefix;
-    }
-
-    public String getHeader() {
-        return header;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
+    public void setExpiration(long expiration) {
+        this.expiration = expiration;
     }
 }
