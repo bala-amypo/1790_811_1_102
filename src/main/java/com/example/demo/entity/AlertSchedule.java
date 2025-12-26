@@ -10,8 +10,11 @@ public class AlertSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private int daysBeforeExpiry;   // 🔴 REQUIRED
+    private int daysBeforeExpiry;
+
+    @ManyToOne
+    @JoinColumn(name = "warranty_id")
+    private Warranty warranty;   // ✅ ADD
 
     public AlertSchedule() {}
 
@@ -19,11 +22,19 @@ public class AlertSchedule {
         return id;
     }
 
-    public int getDaysBeforeExpiry() {   // ✅ REQUIRED
+    public int getDaysBeforeExpiry() {
         return daysBeforeExpiry;
     }
 
     public void setDaysBeforeExpiry(int daysBeforeExpiry) {
         this.daysBeforeExpiry = daysBeforeExpiry;
+    }
+
+    public Warranty getWarranty() {
+        return warranty;
+    }
+
+    public void setWarranty(Warranty warranty) {   // ✅ REQUIRED
+        this.warranty = warranty;
     }
 }
