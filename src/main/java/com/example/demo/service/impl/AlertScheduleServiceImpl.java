@@ -1,8 +1,6 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.AlertSchedule;
-import com.example.demo.entity.Warranty;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.AlertScheduleRepository;
 import com.example.demo.repository.WarrantyRepository;
 import com.example.demo.service.AlertScheduleService;
@@ -13,37 +11,21 @@ import java.util.List;
 @Service
 public class AlertScheduleServiceImpl implements AlertScheduleService {
 
-    private final AlertScheduleRepository alertScheduleRepository;
-    private final WarrantyRepository warrantyRepository;
+    private final AlertScheduleRepository repo;
+    private final WarrantyRepository warrantyRepo;
 
-    public AlertScheduleServiceImpl(AlertScheduleRepository alertScheduleRepository,
-                                    WarrantyRepository warrantyRepository) {
-        this.alertScheduleRepository = alertScheduleRepository;
-        this.warrantyRepository = warrantyRepository;
+    public AlertScheduleServiceImpl(AlertScheduleRepository repo,
+                                    WarrantyRepository warrantyRepo) {
+        this.repo = repo;
+        this.warrantyRepo = warrantyRepo;
     }
 
-    @Override
-    public AlertSchedule createSchedule(Long warrantyId, AlertSchedule schedule) {
-
-        if (schedule.getDaysBeforeExpiry() < 0) {
-            throw new IllegalArgumentException("daysBeforeExpiry must be >= 0");
-        }
-
-        Warranty warranty = warrantyRepository.findById(warrantyId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Warranty not found"));
-
-        schedule.setWarranty(warranty);
-        return alertScheduleRepository.save(schedule);
+    public AlertSchedule createSchedule(Long warrantyId, AlertSchedule s) {
+        s.setWarranty(warrantyRepo.findById(warrantyId).orElseThrow());
+        return repo.save(s);
     }
 
-    @Override
     public List<AlertSchedule> getSchedules(Long warrantyId) {
-
-        if (!warrantyRepository.existsById(warrantyId)) {
-            throw new ResourceNotFoundException("Warranty not found");
-        }
-
-        return alertScheduleRepository.findByWarrantyId(warrantyId);
+        return repo.findByWarrantyId(warrantyId);
     }
 }

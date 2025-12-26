@@ -30,7 +30,6 @@ public class WarrantyServiceImpl implements WarrantyService {
     @Override
     public Warranty registerWarranty(Long userId, Long productId, Warranty w) {
 
-        // ✅ Correct: serialNumber is a direct field
         if (warrantyRepo.existsBySerialNumber(w.getSerialNumber())) {
             throw new IllegalArgumentException("Serial number must be unique");
         }
@@ -58,7 +57,6 @@ public class WarrantyServiceImpl implements WarrantyService {
 
     @Override
     public List<Warranty> getUserWarranties(Long userId) {
-        // ✅ CORRECT for @ManyToOne User
         return warrantyRepo.findByUser_Id(userId);
     }
 }
