@@ -4,5 +4,5 @@ import com.example.demo.dto.RegisterRequest;
 import com.example.demo.entity.User;
 
 public interface UserService {
-    User registerUser(RegisterRequest request);
+    User register(RegisterRequest request);
 }
